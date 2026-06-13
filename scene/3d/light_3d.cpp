@@ -57,11 +57,21 @@ real_t Light3D::get_param(Param p_param) const {
 	return param[p_param];
 }
 
+void Light3D::set_enable_projectile_mode(bool p_enable){
+	projectile_mode_enabled = p_enable;
+	RS::get_singleton()->light_set_projectile_mode(light, projectile_mode_enabled);
+	notify_property_list_changed();
+}
+
 void Light3D::set_shadow(bool p_enable) {
 	shadow = p_enable;
 	RS::get_singleton()->light_set_shadow(light, p_enable);
 
 	update_configuration_warnings();
+}
+
+bool Light3D::is_projectile_mode_enabled() const {
+	return projectile_mode_enabled;
 }
 
 bool Light3D::has_shadow() const {
@@ -77,20 +87,10 @@ bool Light3D::is_negative() const {
 	return negative;
 }
 
-void Light3D::set_enable_projectile_mode(bool p_enable){
-	projectile_mode_enabled = p_enable;
-	RS::get_singleton()->light_set_projectile_mode(light, projectile_mode_enabled);
-	notify_property_list_changed();
-}
-
 void Light3D::set_enable_distance_fade(bool p_enable) {
 	distance_fade_enabled = p_enable;
 	RS::get_singleton()->light_set_distance_fade(light, distance_fade_enabled, distance_fade_begin, distance_fade_shadow, distance_fade_length);
 	notify_property_list_changed();
-}
-
-bool Light3D::is_projectile_mode_enabled() const {
-	return projetile_mode_enabled;
 }
 
 bool Light3D::is_distance_fade_enabled() const {
@@ -364,6 +364,9 @@ void Light3D::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("set_param", "param", "value"), &Light3D::set_param);
 	ClassDB::bind_method(D_METHOD("get_param", "param"), &Light3D::get_param);
 
+	ClassDB::bind_method(D_METHOD("set_enable_projectile_mode", "enable"), &Light3D::set_enable_projectile_mode);
+	ClassDB::bind_method(D_METHOD("is_projectile_mode_enabled"), &Light3D::is_projectile_mode_enabled);
+
 	ClassDB::bind_method(D_METHOD("set_shadow", "enabled"), &Light3D::set_shadow);
 	ClassDB::bind_method(D_METHOD("has_shadow"), &Light3D::has_shadow);
 
@@ -372,9 +375,6 @@ void Light3D::_bind_methods() {
 
 	ClassDB::bind_method(D_METHOD("set_cull_mask", "cull_mask"), &Light3D::set_cull_mask);
 	ClassDB::bind_method(D_METHOD("get_cull_mask"), &Light3D::get_cull_mask);
-	
-	ClassDB::bind_method(D_METHOD("set_enable_projectile_mode", "enable"), &Light3D::set_enable_projectile_mode);
-	ClassDB::bind_method(D_METHOD("is_projectile_mode_enabled"), &Light3D::is_projectile_mode_enabled);
 
 	ClassDB::bind_method(D_METHOD("set_enable_distance_fade", "enable"), &Light3D::set_enable_distance_fade);
 	ClassDB::bind_method(D_METHOD("is_distance_fade_enabled"), &Light3D::is_distance_fade_enabled);

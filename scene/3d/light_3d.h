@@ -75,6 +75,7 @@ private:
 	bool reverse_cull = false;
 	uint32_t cull_mask = 0;
 	uint32_t shadow_caster_mask = 0xFFFFFFFF;
+	bool projectile_mode_enabled = false;
 	bool distance_fade_enabled = false;
 	real_t distance_fade_begin = 40.0;
 	real_t distance_fade_shadow = 50.0;
@@ -107,6 +108,9 @@ public:
 
 	void set_param(Param p_param, real_t p_value);
 	real_t get_param(Param p_param) const;
+	
+	void set_enable_projectile_mode(bool p_enable);
+	bool is_projectile_mode_enabled() const;
 
 	void set_shadow(bool p_enable);
 	bool has_shadow() const;
