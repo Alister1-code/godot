@@ -51,6 +51,7 @@ struct Light {
 	float param[RSE::LIGHT_PARAM_MAX];
 	Color color = Color(1, 1, 1, 1);
 	RID projector;
+	bool projectile_mode = false;
 	bool shadow = false;
 	bool negative = false;
 	bool reverse_cull = false;
@@ -325,6 +326,7 @@ public:
 
 	virtual void light_set_color(RID p_light, const Color &p_color) override;
 	virtual void light_set_param(RID p_light, RSE::LightParam p_param, float p_value) override;
+	virtual void light_set_projectile_mode(RID p_light, bool p_enabled) override;
 	virtual void light_set_shadow(RID p_light, bool p_enabled) override;
 	virtual void light_set_projector(RID p_light, RID p_texture) override;
 	virtual void light_set_negative(RID p_light, bool p_enable) override;
@@ -401,6 +403,11 @@ public:
 	_FORCE_INLINE_ float light_get_distance_fade_length(RID p_light) {
 		const Light *light = light_owner.get_or_null(p_light);
 		return light->distance_fade_length;
+	}
+	
+	virtual bool light_has_projectile_mode(RID p_light) const override{
+		const Light *light = light_owner.get_or_null(p_light);
+		return light->projectile_mode;
 	}
 
 	virtual bool light_has_shadow(RID p_light) const override {
