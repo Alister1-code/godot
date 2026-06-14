@@ -119,6 +119,9 @@
 		<member name="shadow_caster_mask" type="int" setter="set_shadow_caster_mask" getter="get_shadow_caster_mask" default="4294967295">
 			The light will only cast shadows using objects in the selected layers.
 		</member>
+		<member name="projectile_mode_enabled" type="bool" setter="set_enable_projectile_mode" getter="is_projectile_mode_enabled" default="false">
+			if [code]true[/code], the light will lower it's own physics ticks and stop generating shadow maps. intended to be used for fast moving objects like projectiles.
+		</method>
 		<member name="shadow_enabled" type="bool" setter="set_shadow" getter="has_shadow" default="false">
 			If [code]true[/code], the light will cast real-time shadows. This has a significant performance cost. Only enable shadow rendering when it makes a noticeable difference in the scene's appearance, and consider using [member distance_fade_enabled] to hide the light when far away from the [Camera3D].
 		</member>
