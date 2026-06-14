@@ -176,6 +176,13 @@ void LightStorage::light_set_param(RID p_light, RSE::LightParam p_param, float p
 	light->param[p_param] = p_value;
 }
 
+void LightStorage::light_set_projectile_mode(RID p_light, bool p_enabled){
+	Light *light = light_owner.get_or_null(p_light);
+	ERR_FAIL_NULL(light);
+	
+	light->projectile_mode = p_enabled;
+}
+
 void LightStorage::light_set_shadow(RID p_light, bool p_enabled) {
 	Light *light = light_owner.get_or_null(p_light);
 	ERR_FAIL_NULL(light);
